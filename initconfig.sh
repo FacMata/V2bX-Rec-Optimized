@@ -493,6 +493,12 @@ EOF
         "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
         "download_detour": "direct"
       },
+      {   
+        "tag": "geosite-google@cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-google@cn.srs"
+      },
       {
         "tag": "geosite-google",
         "type": "remote",
