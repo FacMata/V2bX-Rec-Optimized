@@ -332,9 +332,25 @@ EOF
         "domainStrategy": "AsIs",
         "rules": [
             {
+                "type": "field",
                 "outboundTag": "block",
                 "ip": [
-                    "geoip:private"
+                    "geoip:private",
+                    "geoip:cn"
+                ]
+            },
+            {
+                "domain": [
+                    "geosite:google"
+                ],
+                "outboundTag": "IPv4_out",
+                "type": "field"
+            },
+            {
+                "type": "field",
+                "outboundTag": "block",
+                "domain": [
+                    "geosite:cn"
                 ]
             },
             {
@@ -394,7 +410,7 @@ EOF
     {
       "tag": "direct",
       "type": "direct",
-      "domain_strategy": "prefer_ipv4"
+      "domain_strategy": "prefer_ipv6"
     },
     {
       "type": "block",
@@ -405,6 +421,19 @@ EOF
     "rules": [
       {
         "ip_is_private": true,
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "geosite-google"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "geosite-cn",
+          "geoip-cn"
+        ],
         "outbound": "block"
       },
       {
@@ -439,6 +468,36 @@ EOF
         "network": [
           "udp","tcp"
         ]
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geoip-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-category-ads-all",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-google.srs",
+        "download_detour": "direct"
       }
     ]
   },
