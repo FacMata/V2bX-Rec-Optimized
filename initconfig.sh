@@ -425,7 +425,8 @@ EOF
       },
       {
         "rule_set": [
-          "geosite-google"
+          "geosite-google",
+          "geosite-google@cn"
         ],
         "outbound": "direct"
       },
